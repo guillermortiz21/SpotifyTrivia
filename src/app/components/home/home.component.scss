@@ -1,0 +1,130 @@
+.home {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    background: linear-gradient(135deg, #1db954, #1ed760);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--border);
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 1rem;
+    box-sizing: border-box;
+    margin-bottom: 0.75rem;
+
+    &:focus {
+      outline: 2px solid var(--spotify-green);
+      border-color: transparent;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+}
+
+.auth-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+
+  .connected {
+    color: var(--spotify-green);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+}
+
+.hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0 0 1.25rem;
+  line-height: 1.4;
+}
+
+.requirements {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+
+  &:focus {
+    outline: 2px solid var(--spotify-green);
+    border-color: transparent;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.divider {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.error {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+}
+
+.spotify-icon {
+  font-size: 1.2rem;
+}

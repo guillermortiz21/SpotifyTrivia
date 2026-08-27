@@ -1,0 +1,143 @@
+@if (initError()) {
+  <div class="game-error">
+    <p class="error" role="alert">{{ initError() }}</p>
+    <a routerLink="/" class="btn btn-primary">Back to home</a>
+  </div>
+} @else if (finished()) {
+  <div class="recap">
+    <header class="recap-header">
+      <p class="recap-kicker">Trivia complete</p>
+      <h1>Final score</h1>
+      <p class="recap-score">{{ score() | number }}</p>
+      <p class="recap-hits">{{ correctCount() }} / {{ totalRounds }} correct</p>
+    </header>
+
+    <ul class="recap-list">
+      @for (entry of recap(); track entry.round) {
+        <li class="recap-item" [class.hit]="entry.correct" [class.miss]="!entry.correct">
+          <span class="recap-round">{{ entry.round }}</span>
+          <span class="recap-song">
+            <span class="recap-title">{{ entry.title }}</span>
+            <span class="recap-artist">{{ entry.artist }}</span>
+          </span>
+          <span class="recap-result">
+            @if (entry.correct) {
+              <span class="recap-badge hit">Correct</span>
+              <span class="recap-points">+{{ entry.points | number }}</span>
+            } @else {
+              <span class="recap-badge miss">Missed</span>
+              <span class="recap-points">0</span>
+            }
+          </span>
+        </li>
+      }
+    </ul>
+
+    <div class="recap-actions">
+      <button class="btn btn-primary" (click)="playAgain()">Play again</button>
+      <a routerLink="/" class="btn btn-ghost">Change playlist</a>
+    </div>
+  </div>
+} @else if (question()) {
+  <div class="game">
+    <header class="game-header">
+      <a routerLink="/" class="back-link">&larr; Change playlist</a>
+      <div class="scoreboard" aria-live="polite">
+        <div class="stat-block">
+          <span class="stat-label">Round</span>
+          <span class="stat-value round-count">{{ round() }}/{{ totalRounds }}</span>
+        </div>
+        <div class="stat-block score-block">
+          <span class="stat-label">Score</span>
+          <span class="stat-value">{{ score() | number }}</span>
+        </div>
+        <div class="stat-block multiplier-block" [class.hot]="multiplier() > 1">
+          <span class="stat-label">Multiplier</span>
+          <span class="stat-value">&times;{{ multiplier() }}</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="player-card">
+      <div class="player-info">
+        <p class="prompt">What song is this?</p>
+
+        <div class="timer" [class.active]="isPlaying()">
+          <div
+            class="timer-bar"
+            [style.width.%]="(timeLeft() / 30) * 100"
+          ></div>
+        </div>
+        <p class="time-label">
+          @if (isPlaying()) {
+            {{ timeLeft() }}s remaining
+          } @else if (needsInteraction()) {
+            Click play to hear the 30-second clip
+          } @else if (result() === null) {
+            Clip ended — replay or guess!
+          } @else {
+            Round complete
+          }
+        </p>
+
+        @if (playError()) {
+          <p class="play-error" role="alert">{{ playError() }}</p>
+        }
+
+        @if (result() === null) {
+          @if (needsInteraction()) {
+            <button class="btn btn-primary play-btn" (click)="playClip()">
+              Play clip
+            </button>
+          } @else {
+            <button class="btn btn-ghost" (click)="replayClip()" [disabled]="isPlaying()">
+              {{ isPlaying() ? 'Playing...' : 'Replay clip' }}
+            </button>
+          }
+        }
+      </div>
+    </section>
+
+    <section class="options">
+      @for (option of question()!.options; track option.id) {
+        <button
+          class="option"
+          [class.selected]="selectedId() === option.id"
+          [class.correct]="isCorrectOption(option.id)"
+          [class.wrong]="isWrongSelection(option.id)"
+          [disabled]="result() !== null"
+          (click)="selectAnswer(option)"
+        >
+          <span class="option-title">{{ option.title }}</span>
+          <span class="option-artist">{{ option.artist }}</span>
+        </button>
+      }
+    </section>
+
+    @if (result(); as r) {
+      <section class="result-banner" [class.correct]="r === 'correct'" [class.incorrect]="r === 'incorrect'">
+        @if (r === 'correct') {
+          <p>Correct! It was <strong>{{ question()!.correctTrack.title }}</strong> by {{ question()!.correctTrack.artist }}</p>
+          @if (lastAward(); as award) {
+            <p class="points-earned">
+              +{{ award.points | number }}
+              <span class="points-detail">
+                ({{ award.base }} + {{ award.speed }} speed) &times; {{ award.multiplier }}
+              </span>
+            </p>
+          }
+        } @else {
+          <p>Not quite! The answer was <strong>{{ question()!.correctTrack.title }}</strong> by {{ question()!.correctTrack.artist }}</p>
+          <p class="points-earned miss">Multiplier reset to &times;1</p>
+        }
+        <button class="btn btn-primary" (click)="nextRound()">
+          {{ round() >= totalRounds ? 'See results' : 'Next song' }}
+        </button>
+      </section>
+    }
+  </div>
+} @else {
+  <div class="game-loading">
+    <p>Connecting to Spotify player...</p>
+  </div>
+}

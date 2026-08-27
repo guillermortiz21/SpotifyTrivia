@@ -1,0 +1,413 @@
+.game {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  .back-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+
+    &:hover {
+      color: var(--spotify-green);
+    }
+  }
+}
+
+.scoreboard {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 5.25rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+
+  .stat-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .stat-value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text);
+
+    &.round-count {
+      font-size: 1.15rem;
+    }
+  }
+}
+
+.score-block {
+  min-width: 7.5rem;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(180deg, #242424 0%, #1a1a1a 100%);
+  border-color: var(--spotify-green);
+  box-shadow: 0 0 0 1px rgba(29, 185, 84, 0.25), 0 8px 20px rgba(0, 0, 0, 0.35);
+
+  .stat-label {
+    color: var(--spotify-green);
+    font-size: 0.7rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+}
+
+.multiplier-block {
+  min-width: 5.5rem;
+
+  .stat-value {
+    color: var(--spotify-green);
+  }
+
+  &.hot {
+    border-color: var(--spotify-green);
+    background: rgba(29, 185, 84, 0.12);
+
+    .stat-value {
+      color: var(--spotify-green-hover);
+    }
+  }
+}
+
+.player-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.player-info {
+  .prompt {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+  }
+}
+
+.timer {
+  height: 6px;
+  background: var(--bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+
+  &.active .timer-bar {
+    background: var(--spotify-green);
+  }
+
+  .timer-bar {
+    height: 100%;
+    background: var(--border);
+    border-radius: 3px;
+    transition: width 1s linear;
+  }
+}
+
+.time-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
+}
+
+.play-error {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem;
+}
+
+.play-btn {
+  width: auto;
+  min-width: 140px;
+}
+
+.options {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+
+  &:hover:not(:disabled) {
+    border-color: var(--spotify-green);
+    background: rgba(29, 185, 84, 0.08);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.selected {
+    border-color: var(--spotify-green);
+  }
+
+  &.correct {
+    border-color: var(--spotify-green);
+    background: rgba(29, 185, 84, 0.15);
+  }
+
+  &.wrong {
+    border-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+  }
+
+  .option-title {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .option-artist {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+}
+
+.result-banner {
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+
+  &.correct {
+    background: rgba(29, 185, 84, 0.1);
+    border-color: var(--spotify-green);
+  }
+
+  &.incorrect {
+    background: rgba(255, 107, 107, 0.08);
+    border-color: #ff6b6b;
+  }
+
+  p {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+  }
+}
+
+.points-earned {
+  font-size: 1.5rem !important;
+  font-weight: 800;
+  color: var(--spotify-green);
+  margin: 0 0 1.25rem !important;
+
+  .points-detail {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  &.miss {
+    font-size: 1rem !important;
+    color: #ff6b6b;
+  }
+}
+
+.recap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.recap-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+
+  h1 {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 1.5rem;
+  }
+}
+
+.recap-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.recap-score {
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(29, 185, 84, 0.35);
+}
+
+.recap-hits {
+  margin: 0.75rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--spotify-green);
+}
+
+.recap-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.recap-item {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+
+  &.hit {
+    border-color: rgba(29, 185, 84, 0.45);
+  }
+
+  &.miss {
+    border-color: rgba(255, 107, 107, 0.35);
+  }
+}
+
+.recap-round {
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.recap-song {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.recap-title {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recap-artist {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recap-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.recap-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  &.hit {
+    color: var(--spotify-green);
+  }
+
+  &.miss {
+    color: #ff6b6b;
+  }
+}
+
+.recap-points {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.recap-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+
+  .btn-ghost {
+    text-decoration: none;
+  }
+}
+
+.game-error,
+.game-loading {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3rem 1rem;
+
+  .error {
+    color: #ff6b6b;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .game-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .scoreboard {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .stat-block {
+    flex: 1;
+  }
+
+  .score-block {
+    flex: 1.4;
+  }
+}

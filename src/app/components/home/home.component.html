@@ -1,0 +1,71 @@
+<div class="home">
+  <header class="hero">
+    <h1>Spotify Trivia</h1>
+    <p class="subtitle">Guess the song from a 30-second clip</p>
+  </header>
+
+  @if (!isAuthenticated()) {
+    <section class="card">
+      <p>Connect your Spotify account to load playlist songs.</p>
+      <ul class="requirements">
+        <li>Spotify <strong>Premium</strong> is required for playback</li>
+        <li>Only playlists you <strong>own</strong> or <strong>collaborate</strong> on can be used</li>
+      </ul>
+      <button class="btn btn-spotify" (click)="login()">
+        <span class="spotify-icon" aria-hidden="true">&#9835;</span>
+        Log in with Spotify
+      </button>
+    </section>
+  } @else {
+    <section class="card">
+      <div class="auth-bar">
+        <span class="connected">Connected to Spotify</span>
+        <button class="btn btn-ghost" (click)="logout()">Log out</button>
+      </div>
+
+      <label for="playlist-select">Your playlists</label>
+      <select
+        id="playlist-select"
+        [(ngModel)]="selectedPlaylistId"
+        (ngModelChange)="onPlaylistSelect()"
+        [disabled]="loading || loadingPlaylists"
+      >
+        <option value="">
+          {{ loadingPlaylists ? 'Loading playlists...' : 'Select a playlist' }}
+        </option>
+        @for (playlist of playlists; track playlist.id) {
+          <option [value]="playlist.id">
+            {{ playlist.name }} ({{ playlist.trackCount }} songs)
+          </option>
+        }
+      </select>
+
+      <p class="divider">or paste a playlist URL</p>
+
+      <label for="playlist-url">Playlist URL</label>
+      <input
+        id="playlist-url"
+        type="url"
+        [(ngModel)]="playlistUrl"
+        placeholder="https://open.spotify.com/playlist/..."
+        [disabled]="loading"
+      />
+
+      <p class="hint">
+        Spotify no longer provides 30-second preview clips for most songs, so this app plays full tracks for 30 seconds via the Spotify player. Public playlists from other users cannot be accessed — only your own or collaborative playlists.
+      </p>
+
+      @if (error) {
+        <p class="error" role="alert">{{ error }}</p>
+      }
+
+      <button
+        class="btn btn-primary"
+        (click)="startGame()"
+        [disabled]="loading || (!selectedPlaylistId && !playlistUrl.trim())"
+      >
+        {{ loading ? 'Loading playlist...' : 'Start Trivia' }}
+      </button>
+    </section>
+  }
+</div>

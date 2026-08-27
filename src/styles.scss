@@ -1,0 +1,78 @@
+:root {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --border: #333;
+  --text: #ffffff;
+  --text-muted: #b3b3b3;
+  --spotify-green: #1db954;
+  --spotify-green-hover: #1ed760;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 500px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background: var(--spotify-green);
+  color: #000;
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    background: var(--spotify-green-hover);
+  }
+}
+
+.btn-spotify {
+  background: var(--spotify-green);
+  color: #000;
+  width: 100%;
+
+  &:hover {
+    background: var(--spotify-green-hover);
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  &:hover:not(:disabled) {
+    color: var(--text);
+  }
+}
